@@ -1,5 +1,7 @@
 /*
-Package bitset implements a fast and simple set that can store small values (from 0 to 15). Each element is represented by a bit in uint16. This allows fast set operations.
+Package bitset implements a fast and simple set that can store small values
+(from 0 to 15). Each element is represented by a bit in uint16.
+This allows fast set operations.
 */
 package bitset
 
@@ -11,7 +13,8 @@ type Element uint8
 // Maximum value that can be stored in a set (15).
 const MaxValue Element = 15
 
-// Bit set. The zero value of this type is an empty set. To check if two sets contain the seme elements, just use the == operator.
+// Bit set. The zero value of this type is an empty set.
+// To check if two sets contain the same elements, just use the == operator.
 type BitSet uint16
 
 // Empty set and {0..15}
@@ -33,17 +36,16 @@ func (set BitSet) Contains(e Element) bool {
 // Size returns the size (number of elements) ot a set
 func (set BitSet) Size() int {
 	s := 0
-	for set > 0 {
+	for ; set > 0; set >>= 1 {
 		s += int(set & 1)
-		set >>= 1
 	}
 	return s
 }
 
 func (set BitSet) rangeHelper(r []Element) []Element {
-	for el := Element(0); set > 0; el++ {
+	for e := Element(0); set > 0; e++ {
 		if set&1 != 0 {
-			r = append(r, el)
+			r = append(r, e)
 		}
 		set >>= 1
 	}
@@ -56,7 +58,7 @@ func (set BitSet) Range() []Element {
 	return set.rangeHelper(make([]Element, 0, set.Size()))
 }
 
-// RangeA works like Range, but returns a slices of the parameter array.
+// RangeA works like Range, but returns a slice of the parameter array.
 // It does not allocate a new array and is thus faster than Range
 func (set BitSet) RangeA(a [16]Element) []Element {
 	return set.rangeHelper(a[:0])
@@ -87,16 +89,19 @@ func (set BitSet) Remove(er ...Element) BitSet {
 }
 
 // Union returns the union of two sets
+// One can use set | other instead
 func (set BitSet) Union(other BitSet) BitSet {
 	return set | other
 }
 
 // Intersection returns the intersection of two sets
+// One can use set & other instead
 func (set BitSet) Intersection(other BitSet) BitSet {
 	return set & other
 }
 
 // Minus returns the difference of two sets
+// One can use set & ^other instead
 func (set BitSet) Minus(other BitSet) BitSet {
 	return set & ^other
 }
