@@ -73,6 +73,22 @@ func TestIntersectionUnionMinus(t *testing.T) {
 	}
 }
 
+func TestMinMax(t *testing.T) {
+	if EmptySet.Min() != 0 {
+		t.Errorf("got %d, wanted 0", EmptySet.Min())
+	}
+	if EmptySet.Max() != 0 {
+		t.Errorf("got %d, wanted 0", EmptySet.Max())
+	}
+	s := EmptySet.Add(4, 3, 7, 6)
+	if s.Min() != 3 {
+		t.Errorf("got %d, wanted 3", s.Min())
+	}
+	if s.Max() != 7 {
+		t.Errorf("got %d, wanted 7", s.Max())
+	}
+}
+
 func ExampleBitSet() {
 	var evens BitSet
 	var e Element

@@ -55,8 +55,6 @@ func (set BitSet) Min() Element {
 	return e
 }
 
-// Max returns the maximum element of a set
-// If the set is empty, returns 0
 func (set BitSet) Max() Element {
 	if (set == EmptySet) {
 		return 0
