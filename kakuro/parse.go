@@ -46,7 +46,7 @@ func parseCell(s string) Cell {
 	if err != nil || e < 1 || 9 < e {
 		return nil
 	}
-	return &ValueCell{Val: bitset.EmptySet.Add(bitset.Element(e))}
+	return &ValueCell{Val: bitset.Set(bitset.Element(e))}
 }
 
 func parseRow(s string) []Cell {

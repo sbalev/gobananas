@@ -5,6 +5,8 @@ import (
 	"github.com/sbalev/gobananas/bitset"
 )
 
+type cellId uint8
+
 const NoClue uint8 = 0
 
 type Cell interface {
@@ -17,5 +19,14 @@ type ClueCell struct {
 }
 
 type ValueCell struct {
-	Val bitset.BitSet
+	Val            bitset.BitSet
+	id             cellId
+	hBlock, vBlock *block
+}
+
+func (cell *ValueCell) blockCell() *blockCell {
+	return &blockCell{
+		id:       cell.id,
+		possible: cell.Val,
+	}
 }
