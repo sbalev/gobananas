@@ -23,6 +23,11 @@ const (
 	Universe BitSet = 1<<16 - 1
 )
 
+// Set returns a set containing the elements passed in parameter
+func Set(er ...Element) BitSet {
+	return EmptySet.Add(er...)
+}
+
 // Interval returns the set {a ... b}
 func Interval(a, b Element) BitSet {
 	return (1<<(b-a+1) - 1) << a
@@ -45,11 +50,11 @@ func (set BitSet) Size() int {
 // Min returns the minimal element of a set.
 // If the set is empty, returns 0
 func (set BitSet) Min() Element {
-	if (set == EmptySet) {
+	if set == EmptySet {
 		return 0
 	}
 	e := Element(0)
-	for ; set & 1 == 0; set >>= 1 {
+	for ; set&1 == 0; set >>= 1 {
 		e++
 	}
 	return e
@@ -58,7 +63,7 @@ func (set BitSet) Min() Element {
 // Max returns the maximum element of a set
 // If the set is empty, returns 0
 func (set BitSet) Max() Element {
-	if (set == EmptySet) {
+	if set == EmptySet {
 		return 0
 	}
 	e := Element(0)
