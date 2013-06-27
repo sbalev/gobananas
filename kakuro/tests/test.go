@@ -7,12 +7,14 @@ import (
 )
 
 func main() {
-	file, err := os.Open(os.Args[1])
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-	g, err := kakuro.ReadGrid(file)
+	/*
+		file, err := os.Open(os.Args[1])
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return
+		}
+		g, err := kakuro.ReadGrid(file) */
+	g, err := kakuro.FetchGrid(os.Args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
