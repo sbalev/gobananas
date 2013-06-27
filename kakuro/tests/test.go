@@ -19,10 +19,10 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	err = g.Solve()
+	/*err = g.Solve()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
-	}
+	}*/
 	fmt.Println(g)
 }
