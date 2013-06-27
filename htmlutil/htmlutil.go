@@ -58,3 +58,14 @@ func ParseTable(n *html.Node) ([][]*html.Node, error) {
 	}
 	return tab, nil
 }
+
+// GetAttr returns the value of a node attribute given its key.
+// The second return value is true if the attribute is present.
+func GetAttr(n *html.Node, key string) (string, bool) {
+	for _, a := range n.Attr {
+		if a.Key == key {
+			return a.Val, true
+		}
+	}
+	return "", false
+}
